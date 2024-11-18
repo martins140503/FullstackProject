@@ -2,7 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const fs = require('fs');
+// const fs = require('fs');
 const { MongoClient } = require('mongodb');
 
 // Create an Express application
