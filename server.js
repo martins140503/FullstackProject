@@ -31,7 +31,7 @@ let ordersCollection;
 })();
 
 // Define the file path to store orders
-const ordersFilePath = path.join(__dirname, 'orders.json');
+// const ordersFilePath = path.join(__dirname, 'orders.json');
 
 
 app.post('/api/orders', async (req, res) => {
