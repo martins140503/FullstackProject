@@ -24,14 +24,33 @@ let productsCollection;
     console.error('Error connecting to MongoDB Atlas:', err);
   }
 })();
-let orders = [];
-    if (fs.existsSync(ordersFilePath)) {
-      const fileData = fs.readFileSync(ordersFilePath, 'utf-8');
-      orders = JSON.parse(fileData);
+
+app.post('/api/orders', async (req, res) => {
+  try {
+    const order = req.body;
+    console.log('Received order:', order); // Log the incoming order for debugging
+
+    if (!order.customer || !order.items || !order.total) {
+      console.error('Invalid order data:', order);
+      return res.status(400).json({ success: false, message: 'Invalid order data' });
     }
 
-    orders.push(order);
+    // let orders = [];
+    // if (fs.existsSync(ordersFilePath)) {
+    //   const fileData = fs.readFileSync(ordersFilePath, 'utf-8');
+    //   orders = JSON.parse(fileData);
+    // }
 
+    // orders.push(order);
+
+    // fs.writeFileSync(ordersFilePath, JSON.stringify(orders, null, 2), 'utf-8');
+    ordersCollection.insertOne(order);
+    res.json({ success: true, message: 'Order placed successfully' });
+  } catch (error) {
+    console.error('Error saving order:', error);
+    res.status(500).json({ success: false, message: 'Failed to place order' });
+  }
+});
 
 // Middleware setup
 app.use(cors());
