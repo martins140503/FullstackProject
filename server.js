@@ -24,6 +24,14 @@ let productsCollection;
     console.error('Error connecting to MongoDB Atlas:', err);
   }
 })();
+let orders = [];
+    if (fs.existsSync(ordersFilePath)) {
+      const fileData = fs.readFileSync(ordersFilePath, 'utf-8');
+      orders = JSON.parse(fileData);
+    }
+
+    orders.push(order);
+
 
 // Middleware setup
 app.use(cors());
