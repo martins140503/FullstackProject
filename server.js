@@ -86,10 +86,7 @@ app.put('/api/products/:id', async (req, res) => {
 
 
 // Middleware setup
-app.use(cors({
-  origin: 'https://martins140503.github.io/frontend/', 
-  methods: ['GET', 'POST', 'PUT', 'DELETE']
-}));
+app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../frontend')));
 
