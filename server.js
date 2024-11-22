@@ -86,7 +86,10 @@ app.put('/api/products/:id', async (req, res) => {
 
 
 // Middleware setup
-app.use(cors());
+app.use(cors({
+  origin: "*",
+  methods: "GET,POST,PUT,PAATCH,HEAD,DELETE",
+}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../frontend')));
 
