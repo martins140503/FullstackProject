@@ -11,7 +11,7 @@ const app = express();
 
 
 // MongoDB Atlas connection
-const MONGO_URI = 'mongodb+srv://project2024:project2024@cluster0.dhp5l.mongodb.net/'; // Replace with your MongoDB Atlas URI
+const MONGO_URI = 'mongodb+srv://project2024:project2024@cluster0.dhp5l.mongodb.net/'; //  MongoDB Atlas URI
 const client = new MongoClient(MONGO_URI);
 
 let productsCollection;
@@ -22,21 +22,21 @@ let ordersCollection;
   try {
     await client.connect();
     console.log('Connected to MongoDB Atlas');
-    const database = client.db('webstore'); // Replace with your database name
-    productsCollection = database.collection('products'); // Replace with your collection name
-    ordersCollection = database.collection('orders'); // Replace with your collection name
+    const database = client.db('webstore'); //  Database name
+    productsCollection = database.collection('products'); //  collection name
+    ordersCollection = database.collection('orders'); //  collection name
   } catch (err) {
     console.error('Error connecting to MongoDB Atlas:', err);
   }
 })();
+
+
 // Middleware setup
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../frontend')));
 
 
-// Define the file path to store orders
-// const ordersFilePath = path.join(__dirname, 'orders.json');
 
 
 app.post('/api/orders', async (req, res) => {
@@ -101,7 +101,7 @@ app.get('/api/products', async (req, res) => {
 });
 
 
-// Other routes (e.g., /api/orders) can be similarly modified...
+
 
 // Start the server
 const PORT = 5000;
