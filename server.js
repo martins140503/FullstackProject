@@ -8,7 +8,7 @@ const { MongoClient } = require('mongodb');
 // Create an Express application
 const app = express();
 
-app.use(express.json())
+
 
 // MongoDB Atlas connection
 const MONGO_URI = 'mongodb+srv://project2024:project2024@cluster0.dhp5l.mongodb.net/'; // Replace with your MongoDB Atlas URI
@@ -29,6 +29,11 @@ let ordersCollection;
     console.error('Error connecting to MongoDB Atlas:', err);
   }
 })();
+// Middleware setup
+app.use(cors());
+app.use(express.json());
+app.use(express.static(path.join(__dirname, '../frontend')));
+
 
 // Define the file path to store orders
 // const ordersFilePath = path.join(__dirname, 'orders.json');
@@ -83,16 +88,6 @@ app.put('/api/products/:id', async (req, res) => {
     res.status(500).json({ success: false, message: 'Failed to update product' });
   }
 });
-
-
-// Middleware setup
-app.use(cors({
-  origin: "https://martins140503.github.io",
-  credentials: true,
-  methods: "GET,POST,PUT,PAATCH,HEAD,DELETE",
-}));
-app.use(express.json());
-app.use(express.static(path.join(__dirname, '../frontend')));
 
 // API route to fetch all products
 app.get('/api/products', async (req, res) => {
