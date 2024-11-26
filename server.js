@@ -34,9 +34,20 @@ let ordersCollection;
 // Middleware setup
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../frontend')));
 
+const staticMiddleware = express.static(path.join(__dirname, '../frontend'));
 
+// Use a middleware to log errors if static files cannot be served
+app.use((req, res, next) => {
+  staticMiddleware(req, res, (err) => {
+    if (err) {
+      console.error(`Error serving static file: ${err.message}`);
+      res.status(500).send('Internal Server Error while serving static files.');
+    } else {
+      next();
+    }
+  });
+});
 
 
 app.post('/api/orders', async (req, res) => {
